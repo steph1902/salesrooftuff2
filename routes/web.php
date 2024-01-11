@@ -120,32 +120,27 @@ Route::middleware(['role:owner'])->group(function () {
 });
 
 
+// use Illuminate\Support\Facades\Route;
 
+Route::get('/optimize', function () {
+    $output = [];
+    $status = 0;
 
-// <td>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y H:i') }}</td>
-// <a href="{{ route('visits.show', $visit->id) }}">View Details</a>
-// <td><a href="{{ route('visits.create', $shop->id) }}">Visit</a></td>
+    // Set the working directory to the Laravel project root
+    chdir(base_path());
 
-// $visitedShops = DB::table('sales_visit')
-//         ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
-//         ->where('sales_visit.sales_id', $userId)
-//         ->select('sales_visit.*', 'shop.shop_name', 'shop.shop_address', 'shop.shop_region', 'shop.shop_city', 'shop.shop_district', 'shop.shop_subdistrict', 'shop.shop_googlemaps_coord', 'shop.shop_uuid')
-//         ->get();
+    // Run the php artisan optimize command
+    exec('php artisan optimize', $output, $status);
 
+    // Log the output (optional)
+    \Illuminate\Support\Facades\Log::info('Artisan Optimize Output: ' . implode(PHP_EOL, $output));
 
-
-#todo entah kenapa kecamatan di database berubah jadi int
-
-
-// <!DOCTYPE html>
-// <html>
-// <head>
-//     <title>Ambil Foto</title>
-// </head>
-// <body>
-//     <form action="/upload" method="post" enctype="multipart/form-data">
-//         <input type="file" accept="image/*" capture="camera" name="photo">
-//         <input type="submit" value="Upload">
-//     </form>
-// </body>
-// </html>
+    // Return a response based on the command status
+    if ($status === 0) {
+        return response('Artisan optimize command ran successfully. 
+        The configuration cache has been cleared successfully, 
+        and routes as well as files have been cached successfully.');
+    } else {
+        return response('Error running artisan optimize command.', 500);
+    }
+})->name('optimize');
