@@ -12,6 +12,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PasswordGenerationController;
 use App\Http\Controllers\SalesReportController; 
 use App\Http\Controllers\UserController; 
+use App\Http\Controllers\TestPushController; 
 
 
 
@@ -105,7 +106,7 @@ Route::get('/sales-report-for-superadmin', [SalesReportController::class, 'showS
 #todo
 Route::get('/sales-report/export', [SalesReportController::class, 'exportSalesReport'])->name('sales-report.export');
 
-
+Route::get('test-push',[TestPushController::class,'testPush'])->name('test-push');
 
 
 Route::middleware(['role:sales'])->group(function () {
