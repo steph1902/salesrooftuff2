@@ -30,7 +30,41 @@
         }
     </style>
 
+    {{-- tambahan --}}
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS (for icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom styles for mobile navigation -->
+    <style>
+        .mobile-nav-link {
+            padding: 8px 15px;
+            display: block;
+            color: #000; /* Adjust the color as needed */
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-nav-link:hover {
+            background-color: #ddd; /* Adjust the color on hover as needed */
+        }
+
+        .mobile-nav-submenu {
+            margin-left: 15px;
+        }
+    </style>
+
+    {{-- tambahan --}}
+
 </head>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     {{-- <body id="page-top"> --}}
         <body id="page-top" class="sidebar-toggled sb-nav-fixed">

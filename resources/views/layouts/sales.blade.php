@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    
 
     <title>ROOFTUFF SALES SYSTEM - SALES</title>
 
@@ -30,7 +31,77 @@
         }
     </style>
 
+
+    {{-- tambahan --}}
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS (for icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom styles for mobile navigation -->
+    <style>
+        .mobile-nav-link {
+            padding: 8px 15px;
+            display: block;
+            color: #000; /* Adjust the color as needed */
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-nav-link:hover {
+            background-color: #ddd; /* Adjust the color on hover as needed */
+        }
+
+        .mobile-nav-submenu {
+            margin-left: 15px;
+        }
+    </style>
+
+    {{-- tambahan --}}
+
 </head>
+
+
+<!-- Mobile Navigation Example -->
+{{-- <ul class="list-unstyled d-md-none"> --}}
+    {{-- <li class="nav-item"> --}}
+        {{-- <a class="mobile-nav-link" data-toggle="collapse" href="#collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Data Toko</span>
+        </a> --}}
+        {{-- <div class="collapse mobile-nav-submenu" id="collapseTwo">
+            <a class="mobile-nav-link" href="{{ route('visits.showVisitedStoreData') }}">Lihat Data Kunjungan Toko</a>
+            <a class="mobile-nav-link" href="{{ url('sales-report/?bulan=10&tahun=2023') }}">Cek Laporan Toko</a>
+            <hr>
+            <a class="mobile-nav-link" href="{{ route('shops.create') }}">Tambah Data Toko</a>
+            <hr>
+            <a class="mobile-nav-link" href="{{ route('update.password.form') }}">Ubah Password</a>
+            <hr>
+            <a class="mobile-nav-link" href="#">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            </a>
+        </div> --}}
+    {{-- </li> --}}
+{{-- </ul> --}}
+
+<!-- Bootstrap JS and jQuery (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
     
     {{-- <body id="page-top"> --}}
         <body id="page-top" class="sidebar-toggled sb-nav-fixed">

@@ -14,24 +14,11 @@
             </div>
         </div>
     </div>
-
-    {{-- <div class="container">
-        <div class="row">
-            <div class="col-md-12">                
-                <a href="{{ route('visits.showVisitedStoreData') }}">Cek daftar toko yang sudah di visit</a>
-            </div>
-            <div class="col-md-12">                
-                <a href="{{ url('sales-report/?bulan=10&tahun=2023') }}">Cek laporan toko yang sudah di visit</a>
-            </div>
-        </div>
-    </div> --}}
+   
 
     <br>
     <hr>
     <br>
-
-
-    
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -98,35 +85,8 @@
 
     <hr><br><hr>
 
-{{-- 
-
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Sales Dashboard</div>
-
-                    <div class="card-body">
-                        {{-- Welcome, {{ Auth::user()->name }}! --}}
-
-                        {{-- <br><hr><br> --}}
-
-                        <!-- Add this logout form -->
-                        {{-- <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-danger">Logout</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  --}}
-    
 
     <br><hr><br>
-
-
-
     
 
 @endsection
