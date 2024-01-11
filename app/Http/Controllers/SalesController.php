@@ -180,7 +180,7 @@ class SalesController extends Controller
     public function destroy($id)
     {
         //
-        $sales = Sales::findOrFail($id);
+        $sales = User::findOrFail($id);
 
         $sales->delete();
 
