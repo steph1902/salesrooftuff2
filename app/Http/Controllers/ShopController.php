@@ -72,6 +72,8 @@ class ShopController extends Controller
         $shop = new Shop;
 
         $shop->nama_sales = $request->user_name;
+        $shop->nama_pic = $request->user_name;
+        $shop->nomor_hp_pic = $request->user_name;
 
         $shop->shop_name = $request->shop_name;
         $shop->shop_address = $request->shop_address;
@@ -88,7 +90,7 @@ class ShopController extends Controller
 
         $shop->shop_uuid = Uuid::uuid4();
 
-        $shop->id = Uuid::uuid4();;
+        // $shop->id = Uuid::uuid4();;
         // dd(gettype($shop->shop_uuid));
 
         // if ($request->hasFile('photo')) {

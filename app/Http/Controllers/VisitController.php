@@ -137,12 +137,21 @@ class VisitController extends Controller
 
         $visit->sales_id = Auth::id();
 
-        // Upload and stamp the main photo
-        if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $photoPath = $this->uploadAndStampPhoto($photo, 'photos');
-            $visit->photo = $photoPath;
+        try {
+            //code...
+            // Upload and stamp the main photo
+            if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $photoPath = $this->uploadAndStampPhoto($photo, 'photos');
+                $visit->photo = $photoPath;
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            Log::error($th);
+
         }
+
+        
 
         $visit->save();
 
