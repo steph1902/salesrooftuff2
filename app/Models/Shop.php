@@ -16,6 +16,8 @@ class Shop extends Model
         'kecamatan' => 'string',
     ];
 
+    protected $guarded = ['id'];
+
     public function sales()
     {
         return $this->hasMany(Sale::class);
