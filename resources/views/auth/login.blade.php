@@ -74,6 +74,17 @@
                             </div>
                         </div>
                     </form>
+
+                    <br><hr><br>
+
+                    {{-- Tambahkan tombol atau tautan registrasi di sini --}}
+                    <div class="mt-3">
+                        <p>Belum punya akun? <a href="{{ route('sales.create') }}">Daftar disini</a></p>
+                    </div>
+
+
+
+
                 </div>
             </div>
         </div>
