@@ -62,32 +62,28 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $validatedData = $request->validate([
-            // 'nik' => 'required',
+        $validatedData = $request->validate([     
             'nama' => 'required',
-            // 'tempat_lahir' => 'required',
-            // 'tanggal_lahir' => 'required',
-            // 'alamat_ktp' => 'required',
-            // 'alamat_domisili' => 'required',
             'nomor_handphone' => 'required',
             'email' => 'required',
-            // 'username' => 'required',
             'password' => 'required',
         ]);
 
-        // Encrypt password sebelum menyimpan
-    $validatedData['password'] = Crypt::encrypt($request->password);
-
-    // Simpan data
-    User::create($validatedData);
-
-
-
+        $validatedData['password'] = Crypt::encrypt($request->password);
         // User::create($validatedData);
-        // dd($validatedData);
 
-        return redirect()->route('sales.index')->with('success', 'Berhasil mendaftarkan sales baru.');
+        $user = new User;
+        $user->name = $validatedData['nama'];
+        $user->email = $validatedData['email'];
+        $user->nomor_handphone_sales = $validatedData['nomor_handphone'];
+        $user->password = $validatedData['password'];
+        $user->role = 'sales';
+        $user->save();
+
+        // return 'Berhasil mendaftarkan sales baru.';
+        return redirect()->route('login')->with('success', 'Berhasil mendaftarkan sales baru. Silahkan login.');
+
+
     }
 
 //     public function store(Request $request)

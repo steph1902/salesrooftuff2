@@ -5,6 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+
+
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
@@ -65,6 +74,17 @@
                             </div>
                         </div>
                     </form>
+
+                    <br><hr><br>
+
+                    {{-- Tambahkan tombol atau tautan registrasi di sini --}}
+                    <div class="mt-3">
+                        <p>Belum punya akun? <a href="{{ route('sales.create') }}">Daftar disini</a></p>
+                    </div>
+
+
+
+
                 </div>
             </div>
         </div>
