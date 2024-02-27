@@ -1,3 +1,44 @@
+
+{{-- /Users/stephs/Documents/sbkrooftuffsalessystem-branch_cadangan/storage/app/public/photos/hlWHZ9RcrTxnQlG0gqtep5Ngc55GxcpqiIt5pm1r.png --}}
+
+{{-- ketika data sales di klik, tampilkan data toko si sales ada apa saja --}}
+
+
+      {{-- +"id": 80001
+      +"nama_sales": "supermochi"
+      +"shop_name": "Toko 27 Feb 2024"
+      +"shop_address": "Toko 27 Feb 2024"
+      +"provinsi": "DKI JAKARTA"
+      +"kota": "KOTA ADM. JAKARTA BARAT"
+      +"kecamatan": "KEBON JERUK"
+      +"kelurahan": "DURI KEPA"
+      +"nama_pic": "supermochi"
+      +"nomor_hp_pic": "supermochi"
+      +"shop_googlemaps_coord": null
+      +"shop_uuid": "47f906ff-6720-4d77-96ea-6010683cce69"
+      +"created_at": "2024-02-27 12:31:30"
+      +"updated_at": "2024-02-27 12:31:30"
+      +"deleted_at": null
+      +"photo": null --}}
+
+      {{-- 5 => {#1487 ▼
+        +"id": 130001
+        +"nama_sales": "supermochi"
+        +"shop_name": "Westie"
+        +"shop_address": "Westie"
+        +"provinsi": "JAWA BARAT"
+        +"kota": "KABUPATEN BOGOR"
+        +"kecamatan": "PARUNG PANJANG"
+        +"kelurahan": "CIBUNAR"
+        +"nama_pic": "supermochi"
+        +"nomor_hp_pic": "supermochi"
+        +"shop_googlemaps_coord": null
+        +"shop_uuid": "1c1edf40-fbe8-44b2-aa72-14cb9a3dd411"
+        +"created_at": "2024-02-27 14:05:31"
+        +"updated_at": "2024-02-27 14:05:31"
+        +"deleted_at": null
+        +"photo": "public/photos/MRbHMgIzwvaxRIMHb231djTSbMxAO2kkcxh0Imqs.webp" --}}
+
 @extends('layouts.superadmin')
 @section('content')
 
@@ -64,6 +105,7 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
+                                    <th>No.</th>
                                     <th>Nama Toko</th>
                                     <th>Nama Sales</th>
                                     <th>Alamat Toko</th>
@@ -72,6 +114,7 @@
                             </thead>
                             <tfoot>
                                 <tr>
+                                    <th>No.</th>
                                     <th>Nama Toko</th>
                                     <th>Nama Sales</th>
                                     <th>Alamat Toko</th>  
@@ -81,11 +124,11 @@
                             <tbody>
                                 @foreach ($shops as $shop)
                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>
-                                        <a href="{{ route('view-shop-details-visit-data', ['id' => $shop->id]) }}">
-
+                                        {{-- <a href="{{ route('view-shop-details-visit-data', ['id' => $shop->id]) }}"> --}}
                                             {{ $shop->shop_name }}
-                                        </a>                                    
+                                        {{-- </a>                                     --}}
                                     </td>
                                     <td>{{$shop->nama_sales}}</td>
                                     <td>
@@ -107,7 +150,6 @@
         </div>
     </div>
 </div>
-
 
 
 

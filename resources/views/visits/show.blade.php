@@ -43,10 +43,10 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <img src="{{ asset('storage/' . $visit->photo) }}" alt="Photo Toko Depan">
-                                    {{ asset('storage/' . $visit->photo) }}
-                                    <br>
-                                    <hr>
-                                    /Users/stephs/Documents/sbkrooftuffsalessystem-branch_cadangan/storage/app/public/photos/oplGpuN6ZorVQQQuolnQ8G8Xla6nO2ERTjnoQCVF.png
+                                    {{-- {{ asset('storage/' . $visit->photo) }} --}}
+                                    {{-- <br> --}}
+                                    {{-- <hr> --}}
+                                    {{-- /Users/stephs/Documents/sbkrooftuffsalessystem-branch_cadangan/storage/app/public/photos/oplGpuN6ZorVQQQuolnQ8G8Xla6nO2ERTjnoQCVF.png --}}
                                 </div>
                             </div>
                         </div>

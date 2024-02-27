@@ -34,42 +34,28 @@
                             <tr>                            
                                 <th>Nama Toko</th>
                                 <th>Alamat Toko</th>
-                                <th>Provinsi</th>
-                                <th>Kota</th>
-                                <th>Kecamatan</th>
-                                <th>Kelurahan</th>                        
-                                <th>Nama PIC</th>
-                                <th>No. Handphone PIC</th>
-                                <th>Action</th>
-                                
+                                <th>Tanggal Ditambahkan</th>   
+                                <th>Action</th>                                                                                        
                             </tr>
                         </thead>
                         <tfoot>
-                            <th>Nama Toko</th>
+                                <th>Nama Toko</th>
                                 <th>Alamat Toko</th>
-                                <th>Provinsi</th>
-                                <th>Kota</th>
-                                <th>Kecamatan</th>
-                                <th>Kelurahan</th>                        
-                                <th>Nama PIC</th>
-                                <th>No. Handphone PIC</th>
-                                <th>Action</th>                            
-                            
+                                <th>Tanggal Ditambahkan</th>      
+                                <th>Action</th>                                                                                                             
                         </tfoot>
                         <tbody>
 
                             @foreach ($shops as $shop)
                                 <tr>
                                     <td>{{ $shop->shop_name }}</td>
-                                    <td>{{ $shop->shop_address }}</td>
-                                    <td>{{ $shop->provinsi }}</td>
-                                    <td>{{ $shop->kota }}</td>
-                                    <td>{{ $shop->kecamatan }}</td>
-                                    <td>{{ $shop->kelurahan }}</td>
-                                    <td>{{ $shop->nama_pic }}</td>
-                                    <td>{{ $shop->nomor_hp_pic }}</td>
-                                    <td><a href="{{ route('visits.create', $shop->id) }}">Visit</a></td>
-                                    {{-- <td>Visit toko</td> --}}
+                                    <td>{{ $shop->shop_address }} <br>
+                                    {{ $shop->provinsi }} <br>
+                                    {{ $shop->kota }} <br>
+                                    {{ $shop->kecamatan }} <br>
+                                    {{ $shop->kelurahan }} <br>
+                                    <td>{{ $shop->created_at ? \Carbon\Carbon::parse($shop->created_at)->format('D, d M Y, H:i') : 'null' }}</td>
+                                    <td><a href="{{ route('visits.create', $shop->id) }}"><i class="fas fa-door-open"></i> Visit</a></td>
                                 </tr>
                             @endforeach
                             

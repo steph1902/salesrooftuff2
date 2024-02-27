@@ -35,7 +35,11 @@ Route::resource('sales', SalesController::class);
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 
+// detail data visit per shop
+Route::get('shops/details/visitdata/{id}',[ShopController::class,'showDetails'])->name('view-shop-details-visit-data');
+Route::get('/assign-sales-to-shop', [SalesController::class, 'showAssignSalesToShopForm'])->name('assign.sales.to.shop');
 
+Route::get('sales/details/shopdata/{namasales}',[ShopController::class,'showDetailsShopData'])->name('view-sales-details-shop-data');
 
 
 Route::get('provinces', [DependantDropdownController::class,'provinces'])->name('provinces');

@@ -27,12 +27,14 @@
                 <thead>
                     <tr>
                         {{-- <th>NIK</th> --}}
-                        {{-- <th>Nama</th> --}}
+                        
                         <!-- Add more table headings for other attributes -->
+                        <th>Nama</th>
                         <th>E-mail</th>
-                        <th>Cek Detail</th>
-                        <th>Edit</th>
-                        <th>Hapus</th>
+                        <th>Action</th>
+                        {{-- <th>Cek Detail</th> --}}
+                        {{-- <th>Edit</th> --}}
+                        {{-- <th>Hapus</th> --}}
                        
                     </tr>
                 </thead>
@@ -40,11 +42,13 @@
                     <tr>
                         {{-- <th>NIK</th> --}}
                         {{-- <th>Nama</th> --}}
+                        <th>Nama</th>
                         <th>E-mail</th>
+                        <th>Action</th>
                         <!-- Add more table headings for other attributes -->
-                        <th>Cek Detail</th>
-                        <th>Edit</th>
-                        <th>Hapus</th>
+                        {{-- <th>Cek Detail</th> --}}
+                        {{-- <th>Edit</th> --}}
+                        {{-- <th>Hapus</th> --}}
                        
                     </tr>
                 </tfoot>
@@ -53,20 +57,40 @@
                     <tr>
                         {{-- <td>{{ $sale->nik }}</td> --}}
                         {{-- <td>{{ $sale->name }}</td> --}}
+                        <td>
+                            <a href="{{ route('view-sales-details-shop-data', ['namasales' => $sale->name]) }}">
+                            {{-- <a href="{{ route('view-sales-details-shop-data', ['name' => $sale->name ?? '']) }}"> --}}
+                                {{ $sale->name }}
+                            </a>
+                        </td>
                         <td>{{ $sale->email }}</td>
                         <td>
-                            <a href="{{ route('sales.show', $sale->id) }}">Lihat Detail</a>
-                        </td>
-                        <td>
-                            <a href="{{ route('sales.edit', $sale->id) }}">Edit</a>
-                        </td>
-                        <td>
+                            <a class="btn" href="{{ route('sales.show', $sale->id) }}">
+                                <i class="fas fa-eye"></i>
+                                Lihat Detail Data Sales
+                            </a>
+
+                            <br>
+
+                            <a class="btn" href="{{ route('sales.edit', $sale->id) }}">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </a>
+
+                            <br>
+
                             <form action="{{ route('sales.destroy', $sale->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn" type="submit">Hapus</button>
+                                <button class="btn" type="submit">
+                                    <i class="fas fa-trash"></i>
+                                    Hapus
+                                </button>
                             </form>
                         </td>
+
+
+
                                                                                                                                                                  
                     </tr>
                 @endforeach
@@ -77,37 +101,6 @@
     </div>
 </div>
 
-{{-- 
--- Table: public.users
-
--- DROP TABLE IF EXISTS public.users;
-
-CREATE TABLE IF NOT EXISTS public.users
-(
-    id bigint NOT NULL DEFAULT nextval('users_id_seq'::regclass),
-    name character varying(255) COLLATE pg_catalog."default",
-    email character varying(255) COLLATE pg_catalog."default",
-    email_verified_at timestamp(0) without time zone,
-    password text COLLATE pg_catalog."default",
-    remember_token character varying(100) COLLATE pg_catalog."default",
-    created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone,
-    role character varying(255) COLLATE pg_catalog."default" DEFAULT 'user'::character varying,
-    peran_user character varying(255) COLLATE pg_catalog."default",
-    tanggal_lahir date,
-    nomor_ktp_sales character varying(255) COLLATE pg_catalog."default",
-    nomor_handphone_sales character varying(255) COLLATE pg_catalog."default",
-    verification_code character varying(255) COLLATE pg_catalog."default",
-    verification_expires_at timestamp without time zone,
-    is_verified boolean DEFAULT false,
-    CONSTRAINT users_pkey PRIMARY KEY (id),
-    CONSTRAINT users_email_unique UNIQUE (email)
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.users
-    OWNER to stephs; --}}
 
 
 @endsection

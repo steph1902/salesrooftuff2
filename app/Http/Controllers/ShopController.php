@@ -22,10 +22,31 @@ class ShopController extends Controller
 {
 
 
+    // {{-- ketika data toko di klik, tampilkan data visit sales --}}
     public function showDetails($id)
     {
-        return view('shops.detail');
+        $visits = DB::table('sales_visit')->where('shop_id', $id)->get();
+        $visitsFirst = DB::table('sales_visit')->where('shop_id', $id)->first();
+        $salesId = $visitsFirst->sales_id;
+
+        $salesName = DB::table('sales_visit')
+        ->select('sales_visit.*', 'users.name as sales_name') 
+        ->leftJoin('users', 'sales_visit.sales_id', '=', 'users.id') 
+        ->where('sales_visit.sales_id', '=', $salesId) 
+        ->first();
+        
+        return view('shops.detail',compact('visits','salesName'));
     }
+
+    public function showDetailsShopData($namasales)
+    {
+        // data toko per sales
+        $shops = DB::table('shop')->where('nama_sales',$namasales)->get();
+        // dd($shopData);
+        return view('sales.salesshopdatapersales',compact('shops'));
+    }
+
+
 
 
 

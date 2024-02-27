@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+// use Illuminate\Support\Facades\Log;
+
+
+
+
 
 class VisitController extends Controller
 {
@@ -137,6 +142,8 @@ class VisitController extends Controller
 
         $visit->sales_id = Auth::id();
 
+        // dd($request);
+
         try {
             //code...
             // Upload and stamp the main photo
@@ -161,28 +168,34 @@ class VisitController extends Controller
     }
 
     private function uploadAndStampPhoto($photo, $folder)
-    {        
-        // working old code
-
-        // /
+    {
         $photoPath = $photo->store($folder, 'public');        
         $image = Image::make(storage_path('app/public/' . $photoPath));
         $timestamp = Carbon::now()->format('Y-m-d H:i:s');
-        $location = $this->request->input('address'); // Menggunakan $this->request
+        $location = $this->request->input('address');
 
-        $image->text($location . ' - ' . $timestamp, $image->width() - 10, $image->height() - 10, function ($font) {
+        $imageWidth = $image->width();
+
+        // Menghitung ukuran font sesuai dengan lebar gambar
+        $fontSize = $imageWidth / 70;
+
+        $image->text($location . ' - ' . $timestamp, $image->width() - 10, $image->height() - 10, function ($font) use ($fontSize) {
             $font->file(public_path('fonts/arial.ttf'));
-            $font->size(14);
+            $font->size($fontSize);
             $font->color('#ffffff');
             $font->align('right');
             $font->valign('bottom');
         });
+
         $image->save();
 
         return $photoPath;
-
-
     }
+
+
+    
+
+    
 
 
 

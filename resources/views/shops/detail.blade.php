@@ -1,8 +1,9 @@
 
 {{-- /Users/stephs/Documents/sbkrooftuffsalessystem-branch_cadangan/storage/app/public/photos/hlWHZ9RcrTxnQlG0gqtep5Ngc55GxcpqiIt5pm1r.png --}}
 
-@extends('layouts.superadmin')
+{{-- ketika data toko di klik, tampilkan data visit sales --}}
 
+@extends('layouts.superadmin')
 @section('content')
 
 <div class="container">
@@ -10,7 +11,10 @@
         <div class="col-md-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-
+                    <h1>Data Visit Toko</h1>
+                    <h6>
+                        Sales : {{$salesName->sales_name}}
+                    </h6>
                 </div>
                 <div class="card-body">
                     {{--  --}}
@@ -18,21 +22,45 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Nama Toko</th>
-                                    <th>Nama Sales</th>
-                                    <th>Alamat Toko</th>
-                                    <th>Tanggal</th>                           
+                                    <th>Nomor</th>
+                                    <th>Tanggal Visit</th>
+                                    <th>Lokasi Pinpoint by System</th>
+                                    <th>Materials</th>
+                                    <th>Notes</th>
+                                    <th>Foto Toko</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>Nama Toko</th>
-                                    <th>Nama Sales</th>
-                                    <th>Alamat Toko</th>  
-                                    <th>Tanggal</th>                                                                            
+                                    <th>Nomor</th>
+                                    <th>Tanggal Visit</th>
+                                    <th>Lokasi Pinpoint by System</th>
+                                    <th>Materials</th>
+                                    <th>Notes</th>
+                                    <th>Foto Toko</th>                                    
                                 </tr>
                             </tfoot>
-                            <tbody>                                                                
+                            <tbody> 
+
+                                @foreach ($visits as $visit)
+                                    
+                                
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td> {{ $visit->created_at ? \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y, H:i') : 'null' }} </td>
+                                    <td> {{$visit->location}} </td>
+                                    <td> {{$visit->materials}}  </td>
+                                    <td> {{$visit->notes}}  </td>
+                                    <td>
+                                        <a href="{{ asset('storage/' . $visit->photo) }}" target="_blank">
+                                            <img src="{{ asset('storage/' . $visit->photo) }}" alt="Photo Toko Depan" style="max-width: 200px; max-height: 200px;">
+                                        </a>
+                                    </td>
+
+                                </tr>
+
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -42,50 +70,6 @@
         </div>
     </div>
 </div>
-
-
-
-<table class="table">
-    <tbody>
-        {{-- <tr>
-            <th>NIK:</th>
-            <td>{{ $sales->nik }}</td>
-        </tr> --}}
-        <tr>
-            <th>Nama:</th>
-            {{-- <td>{{ $sales->nama }}</td> --}}
-        </tr>
-        {{-- <tr>
-            <th>Tempat Lahir:</th>
-            <td>{{ $sales->tempat_lahir }}</td>
-        </tr>
-        <tr>
-            <th>Tanggal Lahir:</th>
-            <td>{{ $sales->tanggal_lahir }}</td>
-        </tr>
-        <tr>
-            <th>Alamat KTP:</th>
-            <td>{{ $sales->alamat_ktp }}</td>
-        </tr>
-        <tr>
-            <th>Alamat Domisili:</th>
-            <td>{{ $sales->alamat_domisili }}</td>
-        </tr> --}}
-        {{-- <tr>
-            <th>Nomor Handphone:</th>
-            <td>{{ $sales->nomor_handphone }}</td>
-        </tr> --}}
-        <tr>
-            <th>E-mail:</th>
-            {{-- <td>{{ $sales->email }}</td> --}}
-        </tr>
-        {{-- <tr>
-            <th>Username:</th>
-            <td>{{ $sales->username }}</td>
-        </tr> --}}
-    </tbody>
-</table>
-
 
 
 @endsection
