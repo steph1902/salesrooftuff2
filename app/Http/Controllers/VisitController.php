@@ -141,8 +141,10 @@ class VisitController extends Controller
             //code...
             // Upload and stamp the main photo
             if ($request->hasFile('photo')) {
+                // dd('masuk');
                 $photo = $request->file('photo');
                 $photoPath = $this->uploadAndStampPhoto($photo, 'photos');
+                // dd($photoPath);
                 $visit->photo = $photoPath;
             }
         } catch (\Throwable $th) {

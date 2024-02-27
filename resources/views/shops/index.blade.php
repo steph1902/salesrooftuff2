@@ -9,6 +9,10 @@
     </div>
 @endif
 
+@php
+    use Carbon\Carbon;
+
+@endphp
 
 {{-- 
 <div class="container">
@@ -57,84 +61,83 @@
 
 <hr>
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                {{-- &year; --}}
-                Daftar toko
-            </h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Nama Toko</th>
-                            <th>Alamat Toko</th>
-                            <th>Provinsi</th>
-                            <th>Kabupaten / Kota</th>
-                            <th>Kecamatan</th>
-                            <th>Desa</th>
-                            {{-- <th>Ubah data toko</th>
-                            <th>Hapus data toko</th> --}}
-                           
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Nama Toko</th>
-                            <th>Alamat Toko</th>
-                            <th>Provinsi</th>
-                            <th>Kabupaten / Kota</th>
-                            <th>Kecamatan</th>
-                            <th>Desa</th>
-                            {{-- <th>Ubah data toko</th>
-                            <th>Hapus data toko</th> --}}
-                           
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        @foreach ($shops as $shop)
-                        <tr>
-                            <td>{{ $shop->shop_name }}</td>
-                            <td>{{ $shop->shop_address }}</td>
-                            <td>{{ $shop->shop_region }}</td>
-                            <td>{{ $shop->shop_city }}</td>
-                            <td>{{ $shop->shop_district }}</td>
-                            <td>{{ $shop->shop_subdistrict }}</td>
-                            {{-- <td>  --}}
-                                {{-- <a href="{{ route('shops.edit', $shop->id) }}">
-                                    <i class="fa fa-edit"></i> Ubah
-                                </a> --}}
-                            {{-- </td> --}}
-                            {{-- <td> --}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        {{-- &year; --}}
+                        Daftar toko
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nama Toko</th>
+                                    <th>Nama Sales</th>
+                                    <th>Alamat Toko</th>
+                                    <th>Tanggal</th>                           
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Nama Toko</th>
+                                    <th>Nama Sales</th>
+                                    <th>Alamat Toko</th>  
+                                    <th>Tanggal</th>                                                                            
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach ($shops as $shop)
+                                <tr>
+                                    <td>{{ $shop->shop_name }}</td>
+                                    <td>{{$shop->nama_sales}}</td>
+                                    <td>
+                                        {{ $shop->shop_address }} <br>
+                                        {{ $shop->provinsi }} <br>
+                                        {{ $shop->kota }} <br>
+                                        {{ $shop->kecamatan }} <br>
+                                        {{ $shop->kelurahan }}                                
+                                    </td>       
+                                    {{-- <td>{{ \Carbon\Carbon::parse($shop->created_at)->format('D, d M Y, H:i') }}</td> --}}
+                                    <td>{{ $shop->created_at ? \Carbon\Carbon::parse($shop->created_at)->format('D, d M Y, H:i') : 'null' }}</td>
 
-                                {{-- <a href="{{ route('shops.destroy', $shop->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
-                                    <i class="fa fa-trash"></i> Hapus
-                                </a>
+                                    {{-- <td>{{ \Carbon\Carbon::createFromFormat('l, d F Y - H:i', $shop->created_at)->format('dmY,H:i') }}</td> --}}
+
+                                    {{-- #attributes: array:16 [▼
+                                    "id" => 80001
+                                    "nama_sales" => "supermochi"
+                                    "shop_name" => "Toko 27 Feb 2024"
+                                    "shop_address" => "Toko 27 Feb 2024"
+                                    "provinsi" => "DKI JAKARTA"
+                                    "kota" => "KOTA ADM. JAKARTA BARAT"
+                                    "kecamatan" => "KEBON JERUK"
+                                    "kelurahan" => "DURI KEPA"
+                                    "nama_pic" => "supermochi"
+                                    "nomor_hp_pic" => "supermochi"
+                                    "shop_googlemaps_coord" => null
+                                    "shop_uuid" => "47f906ff-6720-4d77-96ea-6010683cce69"
+                                    "created_at" => "2024-02-27 12:31:30"
+                                    "updated_at" => "2024-02-27 12:31:30"
+                                    "deleted_at" => null
+                                    "photo" => null --}}
+                     
+                                </tr>
+                            @endforeach
                                 
-                                <form id="delete-form" action="{{ route('shops.destroy', $shop->id) }}" method="POST" style="display: none;">
-                                    @csrf
-                                    @method('DELETE')
-                                </form> --}}
-                                
-                            {{-- </td> --}}
-                           
-                              
-                             
-                              
-
-
-
-                            
-                        </tr>
-                    @endforeach
-                        
-                    </tbody>
-                </table>
-            </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>            
         </div>
     </div>
+</div>
+
+
 
 
 

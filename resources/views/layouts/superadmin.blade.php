@@ -88,6 +88,7 @@
                 </a>
 
 
+
                 
     
                 <!-- Divider -->
@@ -110,16 +111,16 @@
     
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
                         <i class="fas fa-fw fa-cog"></i>
                         <span>Data Toko</span>
                     </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Kelola Data Toko:</h6>
                             <a class="collapse-item" href="{{url('shops')}}">Lihat Data Toko</a>
-                            <a class="collapse-item" href="{{route('shops.create')}}">Buat Data Toko Baru</a>
+                            {{-- <a class="collapse-item" href="{{route('shops.create')}}">Buat Data Toko Baru</a> --}}
                         </div>
                     </div>
                 </li>
@@ -141,12 +142,12 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                        aria-expanded="true" aria-controls="collapseThree">
                         <i class="fas fa-fw fa-cog"></i>
                         <span>Data Report</span>
                     </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Report:</h6>
                             <a class="collapse-item" href="{{ route('report.index') }}">Lihat Laporan</a>
@@ -159,7 +160,7 @@
                 <hr>
 
                 <li class="nav-item">
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item">
                                 <form action="{{ route('logout') }}" method="POST">
@@ -170,6 +171,66 @@
                         </div>
                     </div>
                 </li>
+
+                <li class="nav-item">
+                    <a class="collapse-item text-center">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </a>                    
+                </li>
+
+
+                                {{--  --}}
+                                <hr>
+                                <a href="#">
+                                    <div id="internet-speed" style="text-align: center; color:white;"></div>
+                                    <div id="internet-status" style="text-align: center; color:white !important;"></div>
+                                </a>
+                                <br>
+                                <script>
+                                    function checkInternetSpeed() {
+                                        var speedElement = document.getElementById('internet-speed');
+                                
+                                        if ('connection' in navigator) {
+                                            var connection = navigator.connection;
+                                            if (connection.effectiveType) {
+                                                speedElement.textContent = 'Kecepatan koneksi: ' + connection.effectiveType;
+                                            }
+                                        } else {
+                                            speedElement.textContent = 'Informasi kecepatan koneksi tidak tersedia.';
+                                        }
+                                    }
+                                
+                                    window.addEventListener('load', checkInternetSpeed);
+                                </script>
+                
+                                <script>
+                                    function checkInternetConnection() {
+                                        var statusElement = document.getElementById('internet-status');
+                                        var online = window.navigator.onLine;
+                
+                                        if (online) {
+                                            statusElement.textContent = 'Koneksi internet aktif.';
+                                            statusElement.classList.remove('text-danger');
+                                            statusElement.classList.add('text-success');
+                                        } else {
+                                            statusElement.textContent = 'Tidak ada koneksi internet.';
+                                            statusElement.classList.remove('text-success');
+                                            statusElement.classList.add('text-danger');
+                                        }
+                                    }
+                
+                                    window.addEventListener('load', checkInternetConnection);
+                                    window.addEventListener('online', checkInternetConnection);
+                                    window.addEventListener('offline', checkInternetConnection);
+                                </script>
+                
+                                
+                
+                                {{--  --}}
+
     
             </ul>
 

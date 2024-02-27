@@ -14,10 +14,23 @@ use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Village;
 use Illuminate\Support\Facades\Auth; // Add this line
+use Intervention\Image\Facades\Image;
+use Carbon\Carbon;
 
 
 class ShopController extends Controller
 {
+
+
+    public function showDetails($id)
+    {
+        return view('shops.detail');
+    }
+
+
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +39,7 @@ class ShopController extends Controller
     public function index(Request $request)
     {        
       
+        // dd('a');
         $query = Shop::query();
 
         // Apply filters if provided
@@ -39,6 +53,10 @@ class ShopController extends Controller
             $query->where('shop_city', 'like', '%' . $request->input('filter_city') . '%');
         }
 
+        // Add ordering by created_at descending
+        // $query->where('nama_sales','supermochi')->orderBy('created_at', 'desc');
+        $query->orderBy('created_at', 'desc');
+        
         $shops = $query->get();
 
         // dd($shops);
@@ -83,43 +101,32 @@ class ShopController extends Controller
         $shop->kecamatan = District::find($request->kecamatan)->name;
         $shop->kelurahan = Village::find($request->desa)->name;
 
-        // dd(gettype($request->kecamatan));    
-
-
-        // dd($shop->kelurahan);
 
         $shop->shop_uuid = Uuid::uuid4();
 
-        // $shop->id = Uuid::uuid4();;
-        // dd(gettype($shop->shop_uuid));
+        // $this->validate($request, [
+            // 'photo'     => 'required|image|mimes:png,jpg,jpeg',
+            // 'title'     => 'required',
+            // 'content'   => 'required'
+        // ]);
 
-        // if ($request->hasFile('photo')) {
-        //     $photo = $request->file('photo');
-        //     $photoPath = $photo->store('photos', 'public');
-            
-        //     // Add timestamp watermark to the photo
-        //     $image = Image::make(storage_path('app/public/' . $photoPath));
-        //     $timestamp = Carbon::now()->format('Y-m-d H:i:s');
-        //     $image->text($timestamp, $image->width() - 10, $image->height() - 10, function ($font) {
-        //         $font->file(public_path('fonts/arial.ttf'));
-        //         $font->size(22);
-        //         $font->color('#ffffff');
-        //         $font->align('right');
-        //         $font->valign('bottom');
-        //     });
-        //     $image->save();
-            
-        //     $visit->photo = $photoPath;
-        // }
+        //upload image
+        // $image = $request->file('photo');
+        // $image->storeAs('public/blogs', $image->hashName());
+        // $shop->photo = 
+
 
         // Upload and stamp the main photo
-        if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $photoPath = $this->uploadAndStampPhoto($photo, 'photos');
-            $visit->photo = $photoPath;
-        }
+        // if ($request->hasFile('photo')) {
+        //     $photo = $request->file('photo');
+        //     $photoPath = $this->uploadAndStampPhoto($photo, 'photos');
+        //     $shop->photo = $photoPath;
+        //     // dd($photoPath);
+        // }
 
-
+        $path = $request->file('photo')->store('public/photos');
+        $shop->photo = $path;
+        // dd($path);
 
         $shop->save();
 
@@ -159,13 +166,14 @@ class ShopController extends Controller
     {        
         // working old code
 
+        // dd('uploadAndStampPhoto');
         // /
         $photoPath = $photo->store($folder, 'public');        
         $image = Image::make(storage_path('app/public/' . $photoPath));
         $timestamp = Carbon::now()->format('Y-m-d H:i:s');
-        $location = $this->request->input('address'); // Menggunakan $this->request
+        // $location = $this->request->input('address'); // Menggunakan $this->request
 
-        $image->text($location . ' - ' . $timestamp, $image->width() - 10, $image->height() - 10, function ($font) {
+        $image->text(' - ' . $timestamp, $image->width() - 10, $image->height() - 10, function ($font) {
             $font->file(public_path('fonts/arial.ttf'));
             $font->size(14);
             $font->color('#ffffff');
