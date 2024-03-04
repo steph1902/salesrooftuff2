@@ -150,6 +150,7 @@
                     <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Report:</h6>
+                            <a class="collapse-item" href="{{ url('sales-report/?bulan=10&tahun=2023') }}">Cek Laporan Toko</a>
                             <a class="collapse-item" href="{{ route('report.index') }}">Lihat Laporan</a>
                             <a class="collapse-item" href="{{ route('report.export') }}">Download Laporan</a>
                         </div>

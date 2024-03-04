@@ -12,6 +12,21 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Kreait\Laravel\Firebase\Facades\Firebase;
+
+use Yish\Imgur\Facades\Upload;
+// use Yish\Imgur\Facades\Upload;
+
+
+
+
+
+// use Illuminate\Http\Request;
+use Kreait\Firebase\Auth as FirebaseAuth;
+use Kreait\Firebase\Auth\SignInResult\SignInResult;
+use Kreait\Firebase\Exception\FirebaseException;
+use Google\Cloud\Firestore\FirestoreClient;
+use Session;
 
 // use Illuminate\Support\Facades\Log;
 
@@ -188,6 +203,42 @@ class VisitController extends Controller
         });
 
         $image->save();
+
+
+        // imgur
+        
+        try {
+            //code...
+            $image = Imgur::upload($file);
+            // Get imgur image link.
+            $link = $image->link(); //"https://i.imgur.com/XN9m1nW.jpg"
+            Log::info($link);
+        } catch (\Throwable $th) {
+            //throw $th;
+            Log::error($th->getMessage());
+        }
+        
+        // $image = Imgur::upload($file);
+        // Get imgur image link.
+        // $image->link(); //"https://i.imgur.com/XN9m1nW.jpg"
+
+        // // Mengunggah gambar ke Firebase Storage
+        // $firebase = (new Firebase\Factory())->create();
+        // $storage = $firebase->getStorage();
+        // $bucket = $storage->getBucket();
+
+        // try {
+        //     $file = fopen(storage_path('app/public/' . $photoPath), 'r');
+        //     $bucket->upload($file, ['name' => 'photos/' . $photo->hashName(), // Ubah 'photos/' sesuai dengan direktori yang Anda inginkan di Firebase Storage
+        // ]);
+        // } catch (UploadFailed $e) {
+        //     // Tangani jika gagal mengunggah
+        //     Log::error('Error uploading file to Firebase Storage: ' . $e->getMessage());
+        // }
+
+
+
+
 
         return $photoPath;
     }

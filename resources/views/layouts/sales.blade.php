@@ -171,7 +171,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Data Toko Sales:</h6>
                             <a class="collapse-item" href="{{ route('visits.showVisitedStoreData') }}">Lihat Data Kunjungan Toko</a>
-                            <a class="collapse-item" href="{{ url('sales-report/?bulan=10&tahun=2023') }}">Cek Laporan Toko</a>
+                            
                             <hr>
                             <a class="collapse-item" href="{{ route('shops.create') }}">Tambah Data Toko</a>
                             <hr>
