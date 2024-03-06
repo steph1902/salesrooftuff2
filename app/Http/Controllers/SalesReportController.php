@@ -17,33 +17,57 @@ use App\Models\SalesVisit;
 
 class SalesReportController extends Controller
 {
+
+
+    public function showSalesReportIndex(Request $request)
+    {
+        $id = $request->input('id');
+        $users = DB::table('users')->where('id',$request)->get();
+        // dd($users);  
+    }
+
+
+    public function showFormSalesReport()
+    {
+        return view('report.form-sales-report');
+    }
     
     public function showSalesReport(Request $request)
     {
-        // Step 1: Mengambil bulan dan tahun dari permintaan
-        $bulan = $request->input('bulan', date('m')); // Default ke bulan saat ini jika tidak ada input
-        $tahun = $request->input('tahun', date('Y')); // Default ke tahun saat ini jika tidak ada input
-        
 
-        // Perbarui jumlah hari berdasarkan bulan dan tahun
+    //     #parameters: array:4 [▼
+    //   "_token" => "GAgWLTo112E0ru7M9s4WqIn6DaSlB9AXBvbfY1zb"
+    //   "users" => "36"
+    //   "bulan" => "2"
+    //   "tahun" => "2024"
+    // ]
+
+
+
+        // dd($request);
+        // dd('a');
+
+        $bulan = $request->input('bulan', date('m')); 
+        $tahun = $request->input('tahun', date('Y')); 
+        $userId = $request->input('users');
+        
+                
         $jumlah_hari = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
         $dates = range(1, $jumlah_hari);
 
-        // Mengambil data toko dari database berdasarkan nama sales yang sedang login
-        $user = Auth::user();
-        $userName = $user->name;
-        $userId = $user->id;
+        $usersDB = DB::table('users')->where('id','36')->first();
+
+        $userName = $usersDB->name;        
+        
+
         $shops = DB::table('shop')->where('nama_sales', $userName)->get();
 
-        // Ambil bulan dan tahun yang dipilih oleh pengguna dari permintaan
-        $bulan = $request->input('bulan');
-        $tahun = $request->input('tahun');
+        // $bulan = $request->input('bulan');
+        // $tahun = $request->input('tahun');
 
-        // Dapatkan tanggal awal dan akhir dari bulan yang dipilih
         $tanggal_awal = "$tahun-$bulan-01";
         $tanggal_akhir = "$tahun-$bulan-" . date('t', strtotime($tanggal_awal));
 
-        // Mengambil data kunjungan penjualan untuk bulan dan tahun yang dipilih
         $kunjungan = DB::table('sales_visit')
             ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
             ->where('sales_visit.sales_id', $userId)
@@ -59,7 +83,7 @@ class SalesReportController extends Controller
             'shop.shop_uuid')
             ->get();
 
-        // Membuat matriks laporan dengan tanggal dan toko
+
         $report = [];
         foreach ($dates as $date) {
             $report[$date] = [];

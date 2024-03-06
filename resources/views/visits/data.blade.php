@@ -1,4 +1,8 @@
-@extends('layouts.sales')
+@if(Auth::user()->role === 'sales')
+    @extends('layouts.sales')
+@elseif(Auth::user()->role === 'sales')
+    @extends('layouts.superadmin')
+@endif
 @section('content')
 
 

@@ -102,7 +102,14 @@ Route::post('/update-sales-password', [UserController::class, 'updatePassword'] 
 
 
 // Route::get('/sales-report', [SalesReportController::class, 'showSalesReport']);
-Route::get('/sales-report', [SalesReportController::class, 'showSalesReport'])->name('sales-report');
+// showSalesReportIndex
+Route::get('/sales-report/select-sales', [SalesReportController::class, 'showSalesReportIndex'])->name('sales-report-select-sales');
+
+
+Route::get('/form/sales-report', [SalesReportController::class, 'showFormSalesReport'])->name('form-sales-report');
+Route::post('/sales-report', [SalesReportController::class, 'showSalesReport'])->name('sales-report');
+
+
 Route::get('/sales-report-for-superadmin', [SalesReportController::class, 'showSalesReportBySuperadmin2'])->name('sales-report-superadmin');
 // Route::get('/test-access', [SalesReportController::class, 'testAccess'])->name('test-access');
 // showSalesReportBySuperadmin

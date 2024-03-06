@@ -1,8 +1,21 @@
 @extends('layouts.authviews')
 
+@if(Auth::user()->role === 'SUPERADMIN')
+    @extends('layouts.superadmin')
+@else
+    {{-- @extends('layouts.superadmin') --}}
+    @extends('layouts.authviews')
+@endif
+
+
 @section('content')
     <div class="container">
         <h1 class="mb-4">Buat Data Sales Baru</h1>
+        @if(Auth::user()->role === 'SUPERADMIN')
+            <a href="{{url('/')}}">
+                <h3>ke Home</h3>                
+            </a>
+        @endif
 
         @if ($errors->any())
             <div class="alert alert-danger">

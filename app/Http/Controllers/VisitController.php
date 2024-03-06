@@ -112,19 +112,43 @@ class VisitController extends Controller
     public function showVisitedStoreData()
     {
         $userId = Auth::user()->id;
-        $visitedShops = DB::table('sales_visit')
-        ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
-        ->where('sales_visit.sales_id', $userId)
-        ->select('sales_visit.*', 
-        'shop.shop_name', 
-        'shop.shop_address', 
-        'shop.provinsi', 
-        'shop.kota', 
-        'shop.kecamatan', 
-        'shop.kelurahan', 
-        'shop.shop_googlemaps_coord', 
-        'shop.shop_uuid')
-        ->get();
+
+        // dd(Auth::user()->role);
+
+        if(Auth::user()->role === 'sales')
+        {
+            $visitedShops = DB::table('sales_visit')
+            ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
+            ->where('sales_visit.sales_id', $userId)
+            ->select('sales_visit.*', 
+            'shop.shop_name', 
+            'shop.shop_address', 
+            'shop.provinsi', 
+            'shop.kota', 
+            'shop.kecamatan', 
+            'shop.kelurahan', 
+            'shop.shop_googlemaps_coord', 
+            'shop.shop_uuid')
+            ->get();
+        }
+        elseif(Auth::user()->role === 'SUPERADMIN')
+        {
+            $visitedShops = DB::table('sales_visit')
+            ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
+            ->select('sales_visit.*', 
+            'shop.shop_name', 
+            'shop.shop_address', 
+            'shop.provinsi', 
+            'shop.kota', 
+            'shop.kecamatan', 
+            'shop.kelurahan', 
+            'shop.shop_googlemaps_coord', 
+            'shop.shop_uuid')
+            ->get();
+        }
+            
+
+
 
        return view('visits.data', compact('visitedShops'));
     }

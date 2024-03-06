@@ -13,6 +13,7 @@ use App\Models\Shop;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth; // Add this line
 use App\Models\Visit;
+use Log;
 // use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -22,7 +23,7 @@ class ReportController extends Controller
 {
 
 
-    public function export()
+    public function export(Request $request)
     {        
         $reportData = DB::table('sales_visit')
         ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
@@ -40,6 +41,7 @@ class ReportController extends Controller
 
         )
         ->groupBy(
+            'shop.id',
             'sales_visit.id', 
             'shop.shop_name', 
             'shop.shop_address', 
@@ -47,6 +49,66 @@ class ReportController extends Controller
             'shop.photo', 
             'users.name') 
         ->get();
+
+
+
+        // 
+
+        $query = Shop::query();
+
+        if ($request->filled('shop_name')) {
+            $query->where('shop_name', 'like', '%' . $request->input('shop_name') . '%');
+        }
+
+        if ($request->filled('sales_name')) {
+            $query->whereHas('users', function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->input('sales_name') . '%');
+            });
+        }
+
+        if ($request->filled('province')) {
+            $query->where('shop_city', 'like', '%' . $request->input('province') . '%');
+        }
+
+        $shops = $query->get();
+
+        
+
+        // $startDate = $request->input('start_date');
+        // Log::info('startDate: '.$startDate);
+        // $endDate = $request->input('end_date');
+        // Log::info('endDate: '.$endDate);
+
+        // $startDateTime = $startDate ? date('Y-m-d 00:00:00', strtotime($startDate)) : null;
+        // Log::info('startDateTime: '.$startDateTime);
+        // $endDateTime = $endDate ? date('Y-m-d 23:59:59', strtotime($endDate)) : null;
+        // Log::info('endDateTime: '.$endDateTime);
+
+        // $reportData = DB::table('sales_visit')
+        //     ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
+        //     ->join('users', 'users.id', '=', 'sales_visit.sales_id')
+        //     ->select('sales_visit.*', 'shop.*', 'users.*', 'sales_visit.id')
+        //     ->when($startDate && $endDate, function ($query) use ($startDateTime, $endDateTime) {
+        //         $query->whereBetween('sales_visit.created_at', [$startDateTime, $endDateTime]);
+        //     })
+        //     ->groupBy(
+        //         'shop.id',
+        //         'users.id',
+        //         'sales_visit.id', 
+        //         'shop.shop_name', 
+        //         'shop.shop_address', 
+        //         'shop.kota', 
+        //         'shop.photo', 
+        //         'users.name') 
+        //     ->get();
+
+        
+
+        
+        
+        Log::info($reportData);    
+
+        // 
 
         // dd($reportData);
 
@@ -102,8 +164,6 @@ class ReportController extends Controller
     // 
     public function index(Request $request)
     {
-        // dd('a');
-        // Query untuk filter data berdasarkan input pengguna
         $query = Shop::query();
 
         if ($request->filled('shop_name')) {
@@ -122,78 +182,34 @@ class ReportController extends Controller
 
         $shops = $query->get();
 
-        // attempt-1
-
-        // // Filter data berdasarkan tanggal
-        // $startDate = $request->input('start_date');
-        // $endDate = $request->input('end_date');
-
-        // // dd($startDate);
-
-        // $reportData = DB::table('sales_visit')
-        //     ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
-        //     ->join('users', 'users.id', '=', 'sales_visit.sales_id')
-        //     ->select('sales_visit.*', 'shop.*', 'users.*', 'sales_visit.id')
-        //     ->when($startDate, function ($query) use ($startDate) {
-        //         $query->whereDate('sales_visit.visit_date', '>=', $startDate);
-        //     })
-        //     ->when($endDate, function ($query) use ($endDate) {
-        //         $query->whereDate('sales_visit.visit_date', '<=', $endDate);
-        //     })
-        //     ->get();
-
-        // dd($reportData);
-
-
-        // 
-
-        // attempt-2
-
-        // $startDate = $request->input('start_date');
-        // $endDate = $request->input('end_date');
-
-        // // Format nilai input ke format datetime
-        // $startDateTime = $startDate ? $startDate . ' 00:00:00' : null;
-        // $endDateTime = $endDate ? $endDate . ' 23:59:59' : null;
-
-        // $reportData = DB::table('sales_visit')
-        //     ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
-        //     ->join('users', 'users.id', '=', 'sales_visit.sales_id')
-        //     ->select('sales_visit.*', 'shop.*', 'users.*', 'sales_visit.id')
-        //     ->when($startDate && $endDate, function ($query) use ($startDateTime, $endDateTime) {
-        //         $query->whereBetween('sales_visit.visit_date', [$startDateTime, $endDateTime]);
-        //     })
-        //     ->get();
-
         
 
-        // attempt-3
-
         $startDate = $request->input('start_date');
-        // dd($startDate);
+        Log::info('startDate: '.$startDate);
         $endDate = $request->input('end_date');
+        Log::info('endDate: '.$endDate);
 
-        // Format nilai input ke format datetime yang sesuai dengan format database
         $startDateTime = $startDate ? date('Y-m-d 00:00:00', strtotime($startDate)) : null;
+        Log::info('startDateTime: '.$startDateTime);
         $endDateTime = $endDate ? date('Y-m-d 23:59:59', strtotime($endDate)) : null;
+        Log::info('endDateTime: '.$endDateTime);
 
         $reportData = DB::table('sales_visit')
             ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
             ->join('users', 'users.id', '=', 'sales_visit.sales_id')
             ->select('sales_visit.*', 'shop.*', 'users.*', 'sales_visit.id')
             ->when($startDate && $endDate, function ($query) use ($startDateTime, $endDateTime) {
-                $query->whereBetween('sales_visit.visit_date', [$startDateTime, $endDateTime]);
+                $query->whereBetween('sales_visit.created_at', [$startDateTime, $endDateTime]);
             })
             ->get();
 
-        // dd($startDateTime);
+        
 
-        // $reportData = $query->toSql();
-        // dd($reportData);
-        // $reportData = $query->get();
+        
+        
+        Log::info($reportData);    
 
-
-
+        
 
         
 

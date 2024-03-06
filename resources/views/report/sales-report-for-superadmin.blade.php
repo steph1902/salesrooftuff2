@@ -8,7 +8,7 @@ use Carbon\Carbon;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laporan Penjualan Sales</title>
+    <title>Laporan Sales</title>
     <style>        
         table {
             border-collapse: collapse;
